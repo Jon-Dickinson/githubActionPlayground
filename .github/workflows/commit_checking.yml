@@ -1,0 +1,28 @@
+on:
+  push:
+jobs:
+  commitChecking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: check commits length
+        if: github.event.pusher.name == 'pouannes'
+        run: |
+          commitList=`git log --format=%B ${{ github.event.before }}...${{ github.event.after }}`
+          flag=false
+          while IFS= read -r line; do
+              if [ ${#line} -ge 5 ]; then 
+                  echo "line '$line' is greater than 5 chars"
+              elif [ -z ${line} ]; then
+                  echo "line '$line'  is empty"
+              else 
+                  echo "line '$line' is not long enough, setting the flag to true!"
+                  flag=true
+              fi
+          done <<< "$commitList"
+          if [ "$flag" = true ]; then
+              echo "Bad Daniel commit, sending the webhook!"
+              curl -X POST -H 'Content-type: application/json' --data '{"text":"testing text"}' https://hooks.slack.com/services/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
+          fi
