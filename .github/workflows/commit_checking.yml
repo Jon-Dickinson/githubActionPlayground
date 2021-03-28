@@ -10,6 +10,7 @@ jobs:
       - name: check commits length
         if: github.event.pusher.name == 'pouannes'
         run: |
+          apk add curl
           commitList=`git log --format=%B ${{ github.event.before }}...${{ github.event.after }}`
           flag=false
           while IFS= read -r line; do
