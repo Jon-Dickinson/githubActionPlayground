@@ -27,7 +27,7 @@ jobs:
       - name: Testing flag
         run: echo $flag
       - name: Trigger slack webhook
-        if: $flag == 'true'
+        if: flag == 'true'
         run:
           echo "doing the webook stuff"
           # if [ "$flag" = true ]; then
