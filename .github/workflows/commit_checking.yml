@@ -26,7 +26,8 @@ jobs:
       - name: Trigger slack webhook
         if: env.flag == 'true'
         uses: indiesdev/curl@v1
-        method: "POST"
-        headers: '{ "Content-Type": "application/json" }'
-        body: '{"text":"Hello, World!"}'
-        # params: '{ "data": "'{"text":"Hello, World!"}'" }'
+        with:
+          method: "POST"
+          headers: '{ "Content-Type": "application/json" }'
+          body: '{"text":"Hello, World!"}'
+          # params: '{ "data": "'{"text":"Hello, World!"}'" }'
