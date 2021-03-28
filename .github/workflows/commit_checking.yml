@@ -23,7 +23,14 @@ jobs:
                   flag=true
               fi
           done <<< "$commitList"
-          if [ "$flag" = true ]; then
-              echo "Bad Daniel commit, sending the webhook!"
-              curl -X POST -H 'Content-type: application/json' --data '{"text":"testing text"}' https://hooks.slack.com/services/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
-          fi
+          echo "::set-env name=flag::$flag"
+      - name: Testing flag
+        run: echo $flag
+      - name: Trigger slack webhook
+        if: $flag == 'true'
+        run:
+          echo "doing the webook stuff"
+          # if [ "$flag" = true ]; then
+          #     echo "Bad Daniel commit, sending the webhook!"
+          #     curl -X POST -H 'Content-type: application/json' --data '{"text":"testing text"}' https://hooks.slack.com/services/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
+          # fi
