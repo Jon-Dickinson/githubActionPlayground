@@ -11,7 +11,7 @@ jobs:
         run: |
           commitList=`git log --format=%B ${{ github.event.before }}...${{ github.event.after }}`
           while IFS= read -r line; do
-              if [ ${#line} -ge 5 ] && [ ${#line} -eq 0]; then echo "line '$line' is greater than 5 chars"
-              else echo "line '$line' is long enough"
+              if [ ${#line} -ge 5 ] || [ ${#line} -eq 0]; then echo "line '$line' is greater than 5 chars or empty"
+              else echo "line '$line' is not long enough"
               fi
           done <<< "$commitList"
