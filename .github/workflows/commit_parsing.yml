@@ -8,6 +8,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: get file changes
+        if: github.event.pusher.name == "pouannes"
         run: |
           commitList=`git log --format=%B ${{ github.event.before }}...${{ github.event.after }}`
           flag=false
