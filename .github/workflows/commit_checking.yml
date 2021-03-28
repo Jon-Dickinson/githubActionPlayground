@@ -22,9 +22,9 @@ jobs:
                   flag=true
               fi
           done <<< "$commitList"
-          echo "::set-env name=flag::$flag"
+          echo "flag=$flag" >> $GITHUB_ENV
       - name: Testing flag
-        run: echo $flag
+        run: echo "${{ env.flag }}"
       - name: Trigger slack webhook
         if: env.flag == 'true'
         run:
