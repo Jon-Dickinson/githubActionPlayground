@@ -27,6 +27,7 @@ jobs:
         if: env.flag == 'true'
         uses: indiesdev/curl@v1
         with:
+          url: https://hooks.slack.com/services/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
           method: "POST"
           headers: '{ "Content-Type": "application/json" }'
           body: '{"text":"Hello, World!"}'
