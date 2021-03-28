@@ -10,8 +10,18 @@ jobs:
       - name: get file changes
         run: |
           commitList=`git log --format=%B ${{ github.event.before }}...${{ github.event.after }}`
+          flag=false
           while IFS= read -r line; do
-              if [ ${#line} -ge 5 ] || [ ${#line} -eq 0]; then echo "line '$line' is greater than 5 chars or empty"
-              else echo "line '$line' is not long enough"
+              if [ ${#line} -ge 5 ]; then 
+                  echo "line '$line' is greater than 5 chars"
+              elif [ -z ${line} ]; then
+                  echo "line '$line'  is empty"
+              else 
+                  echo "line '$line' is not long enough, setting the flag to true!"
+                  flag=true
               fi
           done <<< "$commitList"
+          echo $flag
+          if [ "$flag" = true ]; then
+              echo "do the curl command"
+          fi
