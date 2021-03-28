@@ -24,8 +24,8 @@ jobs:
           done <<< "$commitList"
           echo "flag=$flag" >> $GITHUB_ENV
       - name: Trigger slack webhook
-        uses: wei/curl@master
         if: env.flag == 'true'
+        uses: wei/curl@master
         with:
-          args: -X POST -H 'Content-type: application/json' --data '{"text":"testing text"}' https://hooks.slack.com/services/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
+          args: -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
 
